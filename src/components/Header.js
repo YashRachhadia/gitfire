@@ -11,12 +11,24 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebaseConfig";
 
 const Header = () => {
   const context = useContext(UserContext);
   const [hamburgerToggle, sethamburgerToggle] = useState(false);
 
   const toggleHambugerMenu = () => sethamburgerToggle(!hamburgerToggle);
+
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        context.setUser(null);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
 
   return (
     <Navbar className="header-shadow" color="dark" dark expand="md">
@@ -35,12 +47,7 @@ const Header = () => {
         <Nav className="ms-auto" navbar>
           {context.user ? (
             <NavItem>
-              <NavLink
-                onClick={() => {
-                  context.setUser(null);
-                }}
-                className="text-white pointer"
-              >
+              <NavLink onClick={logOut} className="text-white pointer">
                 Logout
               </NavLink>
             </NavItem>

@@ -14,9 +14,10 @@ import {
   CardHeader,
 } from "reactstrap";
 import { UserContext } from "../context/UserContext";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
+import { auth } from "../config/firebaseConfig";
 
 const SignUp = () => {
   const context = useContext(UserContext);
@@ -25,7 +26,6 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
 
   const handleSignUp = () => {
-    const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         context.setUser({ email: res.user.email, uid: res.user.uid });

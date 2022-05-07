@@ -3,23 +3,28 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./App.css";
-import { initializeApp } from "firebase/app";
-import "firebase/auth";
 import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import PageNotFound from "./components/PageNotFound";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UserContext } from "./context/UserContext";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import firebaseConfig from "./config/firebaseConfig"; //import your own firebase Config here.
+import { auth } from "./config/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
   const [user, setUser] = useState(null);
   const { Provider } = UserContext;
 
-  initializeApp(firebaseConfig);
+  useEffect(() => {
+    onAuthStateChanged(auth, (res) => {
+      if (res?.uid) {
+        setUser({ email: res?.email, uid: res?.uid });
+      }
+    });
+  }, []);
 
   return (
     <Router>
