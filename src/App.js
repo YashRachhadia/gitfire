@@ -27,7 +27,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
+    <Router basename="gitfire">
       <ToastContainer />
       <Provider value={{ user, setUser }}>
         <Header />
