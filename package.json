@@ -1,6 +1,7 @@
 {
   "name": "firebase-github",
   "version": "0.1.0",
+  "homepage": "http://YashRachhadia.github.io/gitfire/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.0",
