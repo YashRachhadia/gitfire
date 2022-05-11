@@ -27,7 +27,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router basename="gitfire">
+    <Router basename={process.env.PUBLIC_URL}>
       <ToastContainer />
       <Provider value={{ user, setUser }}>
         <Header />
